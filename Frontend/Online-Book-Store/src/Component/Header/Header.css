@@ -1,0 +1,17 @@
+/* === Dropdown Animation: Drop Effect === */
+.animated-dropdown .dropdown-menu {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+  transition:
+    opacity 0.35s ease-out,
+    transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  display: block; /* Keep visible to allow animation */
+  pointer-events: none;
+}
+
+.animated-dropdown.show .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+/* === Header Styles === */
