@@ -14,10 +14,10 @@ const AddBook = () => {
     const formData = new FormData(e.target);
 
     // Optional: Rename field to match backend's expected PDF param
-    if (formData.has("file")) {
-      formData.set("pdf", formData.get("file"));
-      formData.delete("file");
-    }
+    // if (formData.has("file")) {
+    //   formData.set("pdf", formData.get("file"));
+    //   formData.delete("file");
+    // }
 
     try {
       const response = await fetch("http://localhost:8080/add-book", {
@@ -78,7 +78,7 @@ const AddBook = () => {
             className="form-control"
             id="image"
             name="image"
-            required
+            
           />
         </div>
         <div className="mb-3">
