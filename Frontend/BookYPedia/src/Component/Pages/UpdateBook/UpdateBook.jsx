@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+
+
+const API_URL = import.meta.env.VITE_API_URL;//for vite
 const UpdateBook = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -22,7 +25,7 @@ const UpdateBook = () => {
 
   useEffect(() => {
     // Fetch the book details using the ID from the URL
-    axios.get(`http://localhost:8080/ebooks/${id}`).then((res) => {
+    axios.get(`${API_URL}/ebooks/${id}`).then((res) => {
       setBook(res.data);
     });
   }, [id]);
@@ -42,7 +45,7 @@ const UpdateBook = () => {
     if (pdfFile) formData.append("file", pdfFile);
 
     try {
-      await axios.put(`http://localhost:8080/update-book/${id}`, formData, {
+      await axios.put(`${API_URL}/update-book/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

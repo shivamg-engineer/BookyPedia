@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 
-
+const API_URL = import.meta.env.VITE_API_URL;//for vite
 const BookDetails = () => {
   const { isLoggedIn, user } = useContext(AuthContext);
   const { id } = useParams(); // 🔍 extract book ID from URL
@@ -13,7 +13,7 @@ const BookDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/ebooks/${id}`)
+      .get(`${API_URL}/ebooks/${id}`)
       .then((res) => setBook(res.data))
       .catch((err) => console.error(err));
   }, [id]);
@@ -26,7 +26,7 @@ const BookDetails = () => {
     <div className="container mt-4">
       <h2>{book.name}</h2>
       <img
-        src={`http://localhost:8080${book.imagePath}`}
+        src={`${API_URL}${book.imagePath}`}
         alt={book.name}
         style={{ width: "200px" }}
       />
@@ -70,7 +70,7 @@ const BookDetails = () => {
         <div className="my-4">
           <h4>Read Book:</h4>
           <iframe
-            src={`http://localhost:8080${book.pdfPath}`}
+            src={`${API_URL}${book.pdfPath}`}
             title={book.name}
             style={{ width: "100%", height: "500px" }}
             frameBorder="0"

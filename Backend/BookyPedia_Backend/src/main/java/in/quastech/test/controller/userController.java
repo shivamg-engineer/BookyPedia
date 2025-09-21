@@ -1,5 +1,8 @@
 package in.quastech.test.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,17 +36,19 @@ public class userController {
 	}
 	 // Login user
     @PostMapping("/login")
-    public User login(@RequestBody User loginUser, HttpSession session) {
-        User user = userServiceImpl.login(loginUser.getEmail(), loginUser.getPassword(), session);
-        if (user!=null) {
-            return user;
-        }
-        return user;
+    public ResponseEntity<?>  login(@RequestBody User loginUser, HttpSession session) {
+    	 User user = userServiceImpl.login(loginUser.getEmail(), loginUser.getPassword(), session);
+    	    if (user != null) {
+    	        return ResponseEntity.ok(user); // send user details
+    	    } else {
+    	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+    	    }
     }
     // Logout user
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpSession session) {
         userServiceImpl.logout(session);
+        
         return ResponseEntity.ok("Logout successful");
     }
 
@@ -51,8 +56,18 @@ public class userController {
     @GetMapping("/me")
     public ResponseEntity<?> getLoggedInUser(HttpSession session) {
         User user = userServiceImpl.getLoggedInUser(session);
-        if (user != null) {
-            return ResponseEntity.ok(user);
+        Object userId = session.getAttribute("userId");
+        Object email = session.getAttribute("email");
+        Object role = session.getAttribute("role");
+        Object name = session.getAttribute("name");
+        if (userId != null) {
+        	 Map<String, Object> response = new HashMap<>();
+             response.put("id", userId);
+             response.put("email", email);
+             response.put("role", role);
+             response.put("name", name);
+
+             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user logged in");
         }

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from './Register.module.css'; // Make sure your CSS module exists
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;//for vite
 const Register = () => {
   const navigate = useNavigate();
 
@@ -10,7 +10,7 @@ const Register = () => {
     
     const formData = new FormData(e.target);
 
-    axios.post("http://localhost:8080/register", {
+    axios.post(`${API_URL}/register`, {
         email: formData.get("email"),
         password: formData.get("password"),
         name: formData.get("name"),
@@ -18,7 +18,7 @@ const Register = () => {
         address: formData.get("address")
 
     }).then((response) => {
-      console.log("Registration successful:", response.data);
+      console.log("Registration successful:");
         alert("Registration successful!");
     }).catch((error) => {
       console.error("Error during registration:", error);

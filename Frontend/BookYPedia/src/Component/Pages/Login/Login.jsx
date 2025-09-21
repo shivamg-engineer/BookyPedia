@@ -39,7 +39,7 @@ const Login = () => {
       //add role in session storage
       sessionStorage.setItem("role", user.role); // Assuming role is 'user'
       console.log("Login successful");
-       console.log("Logged in user:", user);
+       console.log("Logged in user:",user.name);
 
       alert("Login successful!");
       navigate("/home");

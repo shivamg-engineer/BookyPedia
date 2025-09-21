@@ -1,5 +1,6 @@
 package in.quastech.test;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,13 +15,16 @@ public class OnlineBookStoreBackendApplication {
 		SpringApplication.run(OnlineBookStoreBackendApplication.class, args);
 	}
 	
+	@Value("${frontend.url}")
+	private String frontnedUrl;
+	
 	 @Bean
 	    public WebMvcConfigurer corsConfigurer() {
 	        return new WebMvcConfigurer() {
 	            @Override
 	            public void addCorsMappings(CorsRegistry registry) {
 	                registry.addMapping("/**") // or "/api/**"
-	                        .allowedOrigins("http://localhost:5173")
+	                        .allowedOrigins(frontnedUrl)
 	                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 	                        .allowedHeaders("*")
 	                        .allowCredentials(true);

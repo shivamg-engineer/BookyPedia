@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
             session.setAttribute("user", user); // store user in session
             return user;
         }
-        return user;
+        return null;
     }
 
     @Override

@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+// const API_URL = process.env.REACT_APP_API_URL;// for react app
+const API_URL = import.meta.env.VITE_API_URL;//for vite
+
 const Ebooks = () => {
   const [books, setBooks] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/ebooks")
+      .get(`${API_URL}/ebooks`)
       .then((response) => {
         console.log(response.data);
         setBooks(response.data);
@@ -33,7 +36,7 @@ const Ebooks = () => {
     );
     if (!confirmDelete) return;
     axios
-      .delete(`http://localhost:8080/ebooks/${bookId}`)
+      .delete(`${API_URL}/ebooks/${bookId}`)
       .then((res) => {
         alert("Book deleted successfully!");
 
@@ -66,7 +69,7 @@ const Ebooks = () => {
             <div key={book.id} className="col-md-4 mb-4">
               <div className="card h-100">
                 <img
-                  src={`http://localhost:8080${book.imagePath}`}
+                  src={`${API_URL}${book.imagePath}`}
                   className="card-img-top"
                   alt={book.title}
                 />

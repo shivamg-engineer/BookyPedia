@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 const AddBook = () => {
-
+const API_URL = import.meta.env.VITE_API_URL;//for vite
   const navigate = useNavigate();
   const [form, setForm] = useState({}); // optional: for local state
   const [file, setFile] = useState(null);
@@ -20,7 +20,7 @@ const AddBook = () => {
     // }
 
     try {
-      const response = await fetch("http://localhost:8080/add-book", {
+      const response = await fetch(`${API_URL}/add-book`, {
         method: "POST",
         body: formData,
       });
