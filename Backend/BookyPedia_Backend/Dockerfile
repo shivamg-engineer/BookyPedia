@@ -13,10 +13,16 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 #Use an official OpenDDK image to run the application
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
 #set the working directory
 WORKDIR /app
+
+# Create uploads directory inside container
+RUN mkdir -p /app/uploads/images /app/uploads/pdfs
+
+# Declare volume for uploads
+VOLUME ["/app/uploads"]
 
 #Copy the built JAR file from the build stage
 COPY --from=build /app/target/Online_Book_Store_Backend-0.0.1.jar .
